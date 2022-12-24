@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AsdosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +18,4 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::resource('products', ProductController::class);
+Route::resource('asdos', AsdosController::class);
