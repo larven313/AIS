@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MahasiswaController;
+use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +20,6 @@ Route::get('/', function () {
 });
 
 Route::resource('products', ProductController::class);
+
+// Route Mahasiswa
+Route::get('mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa');
