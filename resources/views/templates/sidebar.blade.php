@@ -5,7 +5,7 @@
                 <!-- Sidenav Menu Heading (Admin)-->
                 <div class="sidenav-menu-heading">Admin</div>
                 <!-- Sidenav (Dashboard)-->
-                <a class="nav-link">
+                <a class="nav-link" href="/">
                     <div class="nav-link-icon"><i data-feather="activity"></i></div>
                     Dashboards
                 </a>
