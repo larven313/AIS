@@ -23,7 +23,7 @@
                         <a class="nav-link" href="/asdos">
                             Asdos
                         </a>
-                        <a class="nav-link" href="/mahasiswa">
+                        <a class="nav-link" href="{{ route('mahasiswa') }}">
                             Mahasiswa
                         </a>
                     </nav>
