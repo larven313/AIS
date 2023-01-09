@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MahasiswaController extends Controller
 {
@@ -14,7 +15,15 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        return view("mahasiswa.index");
+        // get all data mahasiswa join to tbl_prodi
+        $students = DB::table('tbl_mahasiswa')
+            ->join('tbl_prodi', 'tbl_prodi.id', 'tbl_mahasiswa.prodi_kode')
+            ->select('tbl_mahasiswa.*', 'tbl_prodi.kode as prodi')
+            ->get();
+
+        return view('mahasiswa.index', [
+            'students' => $students
+        ]);
     }
 
     /**

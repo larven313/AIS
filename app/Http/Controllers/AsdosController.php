@@ -14,7 +14,13 @@ class AsdosController extends Controller
      */
     public function index()
     {
-        return view("asdos.index");
+        $asdos = Asdos::all();
+
+        $data = [
+            "dataAsdos" => $asdos
+        ];
+
+        return view('asdos.index', $data);
     }
 
     /**
