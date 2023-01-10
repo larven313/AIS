@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Asdos;
+use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AsdosController extends Controller
+class JadwalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,24 +15,16 @@ class AsdosController extends Controller
      */
     public function index()
     {
-
-        /**
-         * Get All Relation with user & prodi
-         * */
-        // $asdos = Asdos::join("prodi", "prodi.idprodi", "asdos.idprodi")
-        //     ->join("user", "user.iduser", "asdos.iduser")
-        //     ->select("asdos.*", "prodi.nama_prodi as prodi", "user.username as user")
-        //     ->get();
-
-        $asdos = Asdos::join("prodi", "prodi.idprodi", "asdos.idprodi")
-            ->select("asdos.*", "prodi.nama_prodi as prodi")
+        $jadwal = Jadwal::join("asdos", "asdos.idasdos", "jadwal.idasdos")
+            ->join("matkul", "matkul.idmatkul", "jadwal.idmatkul")
+            ->select("jadwal.*", "asdos.nama as asdos", "matkul.nama_matkul as matkul")
             ->get();
 
         $data = [
-            "dataAsdos" => $asdos
+            "dataJadwal" => $jadwal
         ];
 
-        return view('asdos.index', $data);
+        return view('jadwal.index', $data);
     }
 
     /**
@@ -42,7 +34,7 @@ class AsdosController extends Controller
      */
     public function create()
     {
-        //
+        // 
     }
 
     /**
@@ -59,21 +51,20 @@ class AsdosController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Asdos  $asdos
+     * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function show(Asdos $asdos)
+    public function show(Jadwal $jadwal)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Asdos  $asdos
+     * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Asdos $asdos)
+    public function edit(Jadwal $jadwal)
     {
         //
     }
@@ -82,10 +73,10 @@ class AsdosController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Asdos  $asdos
+     * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Asdos $asdos)
+    public function update(Request $request, Jadwal $jadwal)
     {
         //
     }
@@ -93,10 +84,10 @@ class AsdosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Asdos  $asdos
+     * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Asdos $asdos)
+    public function destroy(Jadwal $jadwal)
     {
         //
     }

@@ -26,6 +26,9 @@
                         <a class="nav-link" href="{{ route('mahasiswa') }}">
                             Mahasiswa
                         </a>
+                        <a class="nav-link" href="/jadwal">
+                            Jadwal
+                        </a>
                     </nav>
                 </div>
 

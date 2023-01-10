@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AsdosController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,9 @@ Route::get('mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa'
  * Route Asdos
  * */
 Route::get("asdos", [AsdosController::class, "index"])->name("asdos");
+
+
+/**
+ * Route Jadwal
+ * */
+Route::get("jadwal", [JadwalController::class, "index"])->name("jadwal");
