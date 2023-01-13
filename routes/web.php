@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\AsdosController;
 use App\Http\Controllers\MahasiswaController;
-use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +19,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::resource('products', ProductController::class);
-
 // Route Mahasiswa
 Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa');
 Route::get('/mahasiswa/create', [MahasiswaController::class, 'create'])->name('mahasiswa.create');
@@ -28,3 +26,8 @@ Route::post('/mahasiswa/store', [MahasiswaController::class, 'store'])->name('ma
 Route::get('/mahasiswa/edit{idmhs}', [MahasiswaController::class, 'edit'])->name('mahasiswa.edit');
 Route::post('/mahasiswa/update{idmhs}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
 Route::get('/mahasiswa/destroy{idmhs}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.destroy');
+
+Route::get('mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa');
+
+// Route Asdos
+Route::get("asdos", [AsdosController::class, "index"])->name("asdos");
