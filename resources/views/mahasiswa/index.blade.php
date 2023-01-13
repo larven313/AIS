@@ -2,10 +2,17 @@
 @section('content')
 
 <div id="layoutSidenav_content">
+  
     <main>
     <div class="container-xl px-4 mt-5">
     <div class="row" id="table-hover-row">
       <div class="col-12">
+        @if (session('status'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ session('status') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <div class="page-heading">
           <div class="page-title">
             <div class="row">
@@ -35,8 +42,17 @@
 
           <!-- Basic Tables start -->
           <section class="section">
+            <div class="row match-height">
+              <div class="col-12">
             <div class="card">
-              <div class="card-header">Data Mahasiswa</div>
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-md-6">Data Mahasiswa</div>
+                  <div class="col-md-6 text-end">
+                   <a href="{{ route("mahasiswa.create") }}"><button type="button" class="btn btn-sm btn-primary">Tambah</button></a>
+                  </div>
+                </div>
+              </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table" id="table1">
@@ -46,8 +62,7 @@
                         <th>Nama</th>
                         <th>Prodi</th>
                         <th>Jenis Kelamin</th>
-                        <th>Tempat Lahir</th>
-                        <th>IPK</th>
+                        <th>Alamat</th>
                         <th>ACTION</th>
                       </tr>
                     </thead>
@@ -55,19 +70,25 @@
                     @foreach ($students as $student)
                     
                     <tr>
-                        <td class="text-bold-500">{{ $student->nim }}</td>
+                        <td class="text-bold-500">{{ $student->nim_mhs }}</td>
                         <td>{{ $student->nama }}</td>
                         <td>{{ $student->prodi }}</td>
-                        <td>{{ $student->gender }}</td>
-                        <td class="text-bold-500">{{ $student->tmp_lahir }}</td>
-                        <td>{{ $student->ipk }}</td>
                         <td>
-                          <a href="#"
-                            ><i
-                              class="badge-circle badge-circle-light-secondary font-medium-1"
-                              data-feather="mail"
-                            ></i
-                          ></a>
+                         @if ($student->gender == 'L')
+                             {{ "Laki-laki" }}
+                         @else
+                             {{ "Perempuan" }}
+                         @endif
+                          
+                        </td>
+                        <td class="text-bold-500">{{ $student->alamat }}</td>
+                        <td>
+                          <a href="{{ route('mahasiswa.edit',$student->idmhs) }}" class="btn btn-sm btn-warning"
+                          > Edit</a
+                        >
+                        <a href="{{ route('mahasiswa.destroy',$student->idmhs) }}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus?')"
+                        > Delete</a
+                      >
                         </td>
                       </tr>
     
@@ -76,6 +97,8 @@
                     </tbody>
                   </table>
                 </div>
+              </div>
+            </div>
               </div>
             </div>
           </section>

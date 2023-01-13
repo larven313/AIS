@@ -13,12 +13,18 @@ class MahasiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public $new_student;
+
+    public function __construct()
+    {
+        $this->new_student = new Mahasiswa();
+    }
     public function index()
     {
         // get all data mahasiswa join to tbl_prodi
-        $students = DB::table('tbl_mahasiswa')
-            ->join('tbl_prodi', 'tbl_prodi.id', 'tbl_mahasiswa.prodi_kode')
-            ->select('tbl_mahasiswa.*', 'tbl_prodi.kode as prodi')
+        $students = DB::table('mahasiswa')
+            ->join('prodi', 'prodi.idprodi', 'mahasiswa.idprodi')
+            ->select('mahasiswa.*', 'prodi.nama_prodi as prodi')
             ->get();
 
         return view('mahasiswa.index', [
@@ -33,7 +39,11 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        //
+        $prodi = DB::table('prodi')->select('*')->get();
+
+        return view('mahasiswa.create', [
+            'prodi' => $prodi
+        ]);
     }
 
     /**
@@ -44,7 +54,33 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->new_student->nim_mhs = $request->inp_nim;
+        $this->new_student->nama = $request->inp_nama;
+        $this->new_student->alamat = $request->inp_alamat;
+        $this->new_student->gender = $request->inp_gender;
+        $this->new_student->idprodi = $request->inp_prodi;
+        $this->new_student->iduser = null;
+
+        $rules = [
+            'nim_mhs' => 'required|min:4|max:12',
+            'nama' => 'required|min:3|max"30',
+            'alamat' => 'required|min:4',
+            'idprodi' => 'required',
+            'iduser' => 'required'
+        ];
+        $messages = [
+            'required' => ':attribute tidak boleh kosong',
+            'min' => 'karakter :attribute terlalu pendek',
+            'max' => 'karakter :attribute terlalu panjang'
+        ];
+
+        $this->validate($request, $rules, $messages);
+
+        // dd($request);
+
+        $this->new_student->save();
+
+        return redirect()->route('mahasiswa')->with('status', 'Data Berhasil Ditambahkan');
     }
 
     /**
@@ -64,9 +100,16 @@ class MahasiswaController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mahasiswa $mahasiswa)
+    public function edit($idmhs)
     {
-        //
+        $mahasiswa = Mahasiswa::find($idmhs);
+        // $prodi = DB::table('prodi')->select('*')->where('idmhs', '=', $id)->get();
+        $prodi = DB::table('prodi')->select('*')->get();
+
+        return view('mahasiswa.edit', [
+            'dataMahasiswa' => $mahasiswa,
+            'prodi' => $prodi
+        ]);
     }
 
     /**
@@ -76,9 +119,21 @@ class MahasiswaController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mahasiswa $mahasiswa)
+    public function update(Request $request, $idmhs)
     {
-        //
+        $edit_student = Mahasiswa::find($idmhs);
+        $edit_student->nim_mhs = $request->inp_nim;
+        $edit_student->nama = $request->inp_nama;
+        $edit_student->alamat = $request->inp_alamat;
+        $edit_student->gender = $request->inp_gender;
+        $edit_student->idprodi = $request->inp_prodi;
+        $edit_student->iduser = null;
+
+        // dd($request);
+
+        $edit_student->save();
+
+        return redirect()->route('mahasiswa')->with('status', 'Data Berhasil Diubah');
     }
 
     /**
@@ -87,8 +142,11 @@ class MahasiswaController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mahasiswa $mahasiswa)
+    public function destroy($idmhs)
     {
-        //
+        $delete_mahasiswa = Mahasiswa::findOrFail($idmhs);
+        $delete_mahasiswa->delete();
+
+        return redirect()->route('mahasiswa')->with('status', 'Data Berhasil Dihapus');
     }
 }
