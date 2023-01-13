@@ -19,19 +19,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-<<<<<<< HEAD
-/**
- * * Route Mahasiswa
- * */
-Route::resource('mahasiswa', MahasiswaController::class);
-
-/**
- * * Route Asdos    
- * */
-Route::resource('asdos', AsdosController::class);
-=======
-Route::resource('products', ProductController::class);
-
 // Route Mahasiswa
 Route::get('mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa');
 
@@ -40,4 +27,4 @@ Route::get('mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa'
  * Route Asdos
  * */
 Route::get("asdos", [AsdosController::class, "index"])->name("asdos");
->>>>>>> nelan
+
