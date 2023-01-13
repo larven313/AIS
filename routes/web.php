@@ -30,9 +30,11 @@ Route::get('mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa'
  * Route Asdos
  * */
 Route::get("asdos", [AsdosController::class, "index"])->name("asdos");
+Route::get("asdos/detail/{id}", [AsdosController::class, "show"])->name("asdos.detail");
 
 
 /**
  * Route Jadwal
  * */
 Route::get("jadwal", [JadwalController::class, "index"])->name("jadwal");
+Route::get("jadwal/detail/{id}", [JadwalController::class, "show"])->name("jadwal.detail");

@@ -19,11 +19,6 @@ class AsdosController extends Controller
         /**
          * Get All Relation with user & prodi
          * */
-        // $asdos = Asdos::join("prodi", "prodi.idprodi", "asdos.idprodi")
-        //     ->join("user", "user.iduser", "asdos.iduser")
-        //     ->select("asdos.*", "prodi.nama_prodi as prodi", "user.username as user")
-        //     ->get();
-
         $asdos = Asdos::join("prodi", "prodi.idprodi", "asdos.idprodi")
             ->select("asdos.*", "prodi.nama_prodi as prodi")
             ->get();
@@ -62,9 +57,22 @@ class AsdosController extends Controller
      * @param  \App\Models\Asdos  $asdos
      * @return \Illuminate\Http\Response
      */
-    public function show(Asdos $asdos)
+    public function show(Asdos $asdos, $id)
     {
-        //
+
+        $asdos = Asdos::join('prodi as p', 'p.idprodi', '=', 'asdos.idprodi')
+            ->join('user as u', 'u.iduser', '=', 'asdos.iduser')
+            ->where('idasdos', $id)
+            ->select('*')
+            ->first();
+
+        // dd($asdos->nama);
+
+        $data = [
+            "dataAsdos" => $asdos
+        ];
+
+        return view('asdos.detail', $data);
     }
 
     /**

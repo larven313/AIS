@@ -54,8 +54,20 @@ class JadwalController extends Controller
      * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function show(Jadwal $jadwal)
+    public function show(Jadwal $jadwal, $id)
     {
+        $jadwal = Jadwal::join('asdos as a', 'a.idasdos', '=', 'jadwal.idasdos')
+            ->join('matkul as m', 'm.idmatkul', '=', 'jadwal.idmatkul')
+            ->join('prodi as p', 'p.idprodi', '=', 'a.idprodi')
+            ->where('a.idasdos', $id)
+            ->select("*")
+            ->first();
+
+        $data = [
+            "dataJadwal" => $jadwal
+        ];
+
+        return view("jadwal.detail", $data);
     }
 
     /**

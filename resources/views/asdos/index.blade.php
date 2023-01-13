@@ -31,10 +31,11 @@
 
                             <!-- Basic Tables start -->
                             <section class="section">
+                                <a href="#" class="my-4 btn btn-primary text">Tambah Asisten Dosen</a>
                                 <div class="card">
                                     <div class="card-header">Data Asisten Dosen</div>
                                     <div class="card-body">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive text-center">
                                             <table class="table" id="table1">
                                                 <thead>
                                                     <tr>
@@ -55,15 +56,15 @@
                                                             <td>{{ $asdos->gender }}</td>
                                                             <td>{{ $asdos->prodi }}</td>
                                                             <td>
-                                                                <a href="#">
-                                                                    <i class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                                        data-feather="info"></i></a>
-                                                                <a href="#"><i
-                                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                                        data-feather="edit"></i></a>
-                                                                <a href="#"><i
-                                                                        class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                                        data-feather="trash"></i></a>
+                                                                <a href="{{ route('asdos.detail', ['id' => $asdos->idasdos]) }}" class="mx-2">
+                                                                    <i class="badge-circle badge-circle-light-secondary font-medium-1" data-feather="info"></i>
+                                                                </a>
+                                                                <a href="#" class="mx-2">
+                                                                    <i class="badge-circle badge-circle-light-secondary text-success font-medium-1" data-feather="edit"></i>
+                                                                </a>
+                                                                <a href="#" class="mx-2">
+                                                                    <i class="badge-circle badge-circle-light-secondary text-danger font-medium-1" data-feather="trash"></i>
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
