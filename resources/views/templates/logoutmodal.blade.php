@@ -8,7 +8,7 @@
             <div class="modal-body">Pilih "Keluar" di bawah jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
             <div class="modal-footer">
                 <button class="btn btn-transparent-dark" type="button" data-bs-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger" href="/logout">Logout</a>
+                <a class="btn btn-danger" href="{{ route('signout') }}">Logout</a>
             </div>
         </div>
     </div>

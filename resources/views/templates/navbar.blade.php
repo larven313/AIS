@@ -79,8 +79,8 @@
             <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage">
                 <h6 class="dropdown-header d-flex align-items-center">
                     <div class="dropdown-user-details">
-                        <div class="dropdown-user-details-name">Username</div>
-                        <div class="dropdown-user-details-email">Email</div>
+                        <div class="dropdown-user-details-name">{{ auth()->user()->name }}</div>
+                    <div class="dropdown-user-details-email">{{ auth()->user()->email }}</div>
                     </div>
                 </h6>
                 <div class="dropdown-divider"></div>

@@ -26,13 +26,16 @@
                         <a class="nav-link" href="{{ route('mahasiswa') }}">
                             Mahasiswa
                         </a>
+                        <a class="nav-link" href="{{ route('presensi') }}">
+                            Presensi
+                        </a>
                     </nav>
                 </div>
 
                 <!-- Sidenav Heading (Users)-->
                 <div class="sidenav-menu-heading">Users</div>
                 <!-- Sidenav Users (Layout)-->
-                <a class="nav-link" href="/users">
+                <a class="nav-link" href="{{ route('users') }}">
                     <div class="nav-link-icon"><i data-feather="users"></i></div>
                     Users
                 </a>
@@ -49,7 +52,7 @@
         <div class="sidenav-footer">
             <div class="sidenav-footer-content">
                 <div class="sidenav-footer-subtitle">Logged in as:</div>
-                <div class="sidenav-footer-title">Nama User</div>
+                <div class="sidenav-footer-title">{{ auth()->user()->email }}</div>
             </div>
         </div>
     </nav>
