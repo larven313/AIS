@@ -40,9 +40,11 @@ class MahasiswaController extends Controller
     public function create()
     {
         $prodi = DB::table('prodi')->select('*')->get();
+        $user = DB::table('user')->select('*')->get();
 
         return view('mahasiswa.create', [
-            'prodi' => $prodi
+            'prodi' => $prodi,
+            'user' => $user
         ]);
     }
 
@@ -54,33 +56,32 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $this->new_student->nim_mhs = $request->inp_nim;
-        $this->new_student->nama = $request->inp_nama;
-        $this->new_student->alamat = $request->inp_alamat;
-        $this->new_student->gender = $request->inp_gender;
-        $this->new_student->idprodi = $request->inp_prodi;
-        $this->new_student->iduser = null;
 
         $rules = [
-            'nim_mhs' => 'required|min:4|max:12',
-            'nama' => 'required|min:3|max"30',
-            'alamat' => 'required|min:4',
-            'idprodi' => 'required',
-            'iduser' => 'required'
+            'nama' => "required|min:3|max:25",
+            'nim_mhs' => "required|min:3|max:12",
+            'alamat' => "required|min:5",
+            'idprodi' => "required",
+            'iduser' => "required"
+
+
         ];
         $messages = [
-            'required' => ':attribute tidak boleh kosong',
-            'min' => 'karakter :attribute terlalu pendek',
-            'max' => 'karakter :attribute terlalu panjang'
+            'required' => ":attribute tidak boleh kosong",
+            'min' => ":attribute karakter terlalu pendek",
+            'max' => ":attribute karakter terlalu panjang ",
         ];
-
         $this->validate($request, $rules, $messages);
 
-        // dd($request);
+        $this->new_student->nim_mhs = $request->nim_mhs;
+        $this->new_student->nama = $request->nama;
+        $this->new_student->alamat = $request->alamat;
+        $this->new_student->gender = $request->gender;
+        $this->new_student->idprodi = $request->idprodi;
+        $this->new_student->iduser = $request->iduser;
 
         $this->new_student->save();
-
-        return redirect()->route('mahasiswa')->with('status', 'Data Berhasil Ditambahkan');
+        return redirect()->route('mahasiswa')->with('status', 'Berhasil Menambahkan Data ');
     }
 
     /**
@@ -103,11 +104,19 @@ class MahasiswaController extends Controller
     public function edit($idmhs)
     {
         $mahasiswa = Mahasiswa::find($idmhs);
-        // $prodi = DB::table('prodi')->select('*')->where('idmhs', '=', $id)->get();
+        $mhs = DB::table('mahasiswa')->join('prodi', 'prodi.idprodi', '=', 'mahasiswa.idprodi')
+            ->join('user', 'user.iduser', '=', 'mahasiswa.iduser')
+            ->where('idmhs', '=', $idmhs)->first();
+        $user = DB::table('user')->select('*')->get();
         $prodi = DB::table('prodi')->select('*')->get();
 
+        // dd($mhs);
+
+        // dd($mhs);
         return view('mahasiswa.edit', [
             'dataMahasiswa' => $mahasiswa,
+            'dataJoin' => $mhs,
+            'user' => $user,
             'prodi' => $prodi
         ]);
     }
@@ -121,15 +130,27 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, $idmhs)
     {
+        $rules = [
+            'inp_nama' => "required|min:3|max:25",
+            'inp_nim' => "required|min:3|max:12",
+            'inp_alamat' => "required|min:5",
+            'inp_prodi' => "required"
+
+        ];
+        $messages = [
+            'required' => ":attribute tidak boleh kosong",
+            'min' => ":attribute karakter terlalu pendek",
+            'max' => ":attribute karakter terlalu panjang ",
+        ];
+        $this->validate($request, $rules, $messages);
+
         $edit_student = Mahasiswa::find($idmhs);
         $edit_student->nim_mhs = $request->inp_nim;
         $edit_student->nama = $request->inp_nama;
         $edit_student->alamat = $request->inp_alamat;
         $edit_student->gender = $request->inp_gender;
         $edit_student->idprodi = $request->inp_prodi;
-        $edit_student->iduser = null;
-
-        // dd($request);
+        $edit_student->iduser = $request->inp_user;
 
         $edit_student->save();
 
