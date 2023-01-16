@@ -31,6 +31,7 @@ Route::get('mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa'
  * */
 Route::get("asdos", [AsdosController::class, "index"])->name("asdos");
 Route::get("asdos/detail/{id}", [AsdosController::class, "show"])->name("asdos.detail");
+Route::get("asdos/delete/{id}", [AsdosController::class, "destroy"])->name("asdos.delete");
 
 
 /**

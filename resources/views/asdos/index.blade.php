@@ -62,7 +62,7 @@
                                                                 <a href="#" class="mx-2">
                                                                     <i class="badge-circle badge-circle-light-secondary text-success font-medium-1" data-feather="edit"></i>
                                                                 </a>
-                                                                <a href="#" class="mx-2">
+                                                                <a href="{{ route('asdos.delete', ['id' => $asdos->idasdos]) }}" class="mx-2">
                                                                     <i class="badge-circle badge-circle-light-secondary text-danger font-medium-1" data-feather="trash"></i>
                                                                 </a>
                                                             </td>

@@ -37,18 +37,17 @@ class AsdosController extends Controller
      */
     public function create()
     {
-        //
     }
 
-    /**
-     * Store a newly created resource in storage.
+    /*** Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        // create new asdos
+
     }
 
     /**
@@ -66,7 +65,7 @@ class AsdosController extends Controller
             ->select('*')
             ->first();
 
-        // dd($asdos->nama);
+
 
         $data = [
             "dataAsdos" => $asdos
@@ -104,8 +103,8 @@ class AsdosController extends Controller
      * @param  \App\Models\Asdos  $asdos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Asdos $asdos)
+    public function destroy(Asdos $asdos, $id)
     {
-        //
+        // 
     }
 }
