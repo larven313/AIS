@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AsdosController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +28,15 @@ Route::get('/mahasiswa/edit{idmhs}', [MahasiswaController::class, 'edit'])->name
 Route::post('/mahasiswa/update{idmhs}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
 Route::get('/mahasiswa/destroy{idmhs}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.destroy');
 
-Route::get('mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa');
-
-// Route Asdos
+/**
+ * Route Asdos
+ * */
 Route::get("asdos", [AsdosController::class, "index"])->name("asdos");
+Route::get("asdos/detail/{id}", [AsdosController::class, "show"])->name("asdos.detail");
+Route::get("asdos/delete/{id}", [AsdosController::class, "destroy"])->name("asdos.delete");
+
+/**
+ * Route Jadwal
+ * */
+Route::get("jadwal", [JadwalController::class, "index"])->name("jadwal");
+Route::get("jadwal/detail/{id}", [JadwalController::class, "show"])->name("jadwal.detail");

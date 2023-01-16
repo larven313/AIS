@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Asdos;
+use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AsdosController extends Controller
+class JadwalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,19 +15,16 @@ class AsdosController extends Controller
      */
     public function index()
     {
-
-        /**
-         * Get All Relation with user & prodi
-         * */
-        $asdos = Asdos::join("prodi", "prodi.idprodi", "asdos.idprodi")
-            ->select("asdos.*", "prodi.nama_prodi as prodi")
+        $jadwal = Jadwal::join("asdos", "asdos.idasdos", "jadwal.idasdos")
+            ->join("matkul", "matkul.idmatkul", "jadwal.idmatkul")
+            ->select("jadwal.*", "asdos.nama as asdos", "matkul.nama_matkul as matkul")
             ->get();
 
         $data = [
-            "dataAsdos" => $asdos
+            "dataJadwal" => $jadwal
         ];
 
-        return view('asdos.index', $data);
+        return view('jadwal.index', $data);
     }
 
     /**
@@ -37,50 +34,49 @@ class AsdosController extends Controller
      */
     public function create()
     {
+        // 
     }
 
-    /*** Store a newly created resource in storage.
+    /**
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        // create new asdos
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Asdos  $asdos
+     * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function show(Asdos $asdos, $id)
+    public function show(Jadwal $jadwal, $id)
     {
-
-        $asdos = Asdos::join('prodi as p', 'p.idprodi', '=', 'asdos.idprodi')
-            ->join('user as u', 'u.iduser', '=', 'asdos.iduser')
-            ->where('idasdos', $id)
-            ->select('*')
+        $jadwal = Jadwal::join('asdos as a', 'a.idasdos', '=', 'jadwal.idasdos')
+            ->join('matkul as m', 'm.idmatkul', '=', 'jadwal.idmatkul')
+            ->join('prodi as p', 'p.idprodi', '=', 'a.idprodi')
+            ->where('a.idasdos', $id)
+            ->select("*")
             ->first();
 
-
-
         $data = [
-            "dataAsdos" => $asdos
+            "dataJadwal" => $jadwal
         ];
 
-        return view('asdos.detail', $data);
+        return view("jadwal.detail", $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Asdos  $asdos
+     * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Asdos $asdos)
+    public function edit(Jadwal $jadwal)
     {
         //
     }
@@ -89,10 +85,10 @@ class AsdosController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Asdos  $asdos
+     * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Asdos $asdos)
+    public function update(Request $request, Jadwal $jadwal)
     {
         //
     }
@@ -100,11 +96,11 @@ class AsdosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Asdos  $asdos
+     * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Asdos $asdos, $id)
+    public function destroy(Jadwal $jadwal)
     {
-        // 
+        //
     }
 }
